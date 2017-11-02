@@ -3505,7 +3505,7 @@ tbody.collapse.show {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding-left: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   list-style: none;
 }
 
