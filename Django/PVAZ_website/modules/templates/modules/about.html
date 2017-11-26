@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'modules/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'modules/css/custom.css' %}">
+  <title>PVAZ - About</title>
+</head>
+<body>
+<div class="container">
+  
+  <header class="text-center">
+    <h1 class="display-1">PVAZ <small class="text-muted">The Arizona Model</small></h1>
+    <p class="lead">Compare photovoltaic modules using a specialized standard that reflects the climate of Arizona.</p>
+  </header>
+
+  <nav class="nav nav-pills navbar-toggleable-sm justify-content-center">
+        <a class="nav-item nav-link" href="/module/">Home</a>
+        <a class="nav-item nav-link" href="/module/moduleSpecs/">Module Specs</a>
+        <a class="nav-item nav-link" href="/module/moduleRequest/">Module Request</a>
+    </nav>
+  <div class="row">
+    <h6 class="col-4 mx-auto display-4">About PVAZ</h6>
+  </div>
+    <div class="row">
+        <section class="col-8">
+            <img class=" w-100 rounded" src="{% static 'modules/images/solarpanels.jpg' %}"" alt="Solar panels">
+        </section>
+        <section class="col-4">
+            <p>
+                Photovoltaic (PV) modules, commonly known as solar panels, can be found around the globe and in a variety of environments. To help comparisons of PV module performance, standard test conditions (STC) were conceived in labs and measured to assure a consistent spectrum of analysis. These particular test conditions do not always line up with the real world, and as such a different standard was derived, called PVUSA test condition. This latter standard took place in California, and, while more attuned to real world conditions than STC, still lacked performance prediction in more extreme environments, such as deserts.
+                This project, dubbed <strong>PVAZ</strong>, attempts to predict PV performance using weather and PV module data originating from Mesa, Arizona.
+            </p>
+        </section>
+    </div>
+</div><!-- container -->
+
+<footer class="footer">
+  <div class="container">
+    <nav class="nav justify-content-center">
+        <a class=" pr-4" style="color:white;" href="#">About</a>
+        <a style="color:white" href="/module/contact/">Contact Us</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>

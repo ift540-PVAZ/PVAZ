@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'modules/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'modules/css/custom.css' %}">
+  <title>PVAZ - Contact</title>
+</head>
+<body>
+<div class="container">
+  
+    <header class="text-center">
+        <h1 class="display-1">PVAZ <small class="text-muted">The Arizona Model</small></h1>
+        <p class="lead">Compare photovoltaic modules using a specialized standard that reflects the climate of Arizona.</p>
+    </header>
+
+    <nav class="nav nav-pills navbar-toggleable-sm justify-content-center">
+        <a class="nav-item nav-link" href="/module/">Home</a>
+        <a class="nav-item nav-link" href="/module/moduleSpecs/">Module Specs</a>
+        <a class="nav-item nav-link" href="/module/moduleRequest/">Module Request</a>
+    </nav>
+
+
+    <p class="mb-4 text-center">
+        Have a question or comment for us? Send us an email, and we'll get back to you as soon as we can.
+    </p>
+    <form class="mx-auto col-5">
+        <div class="form-group">
+            <label for="emailAddress">Your email address:</label>
+            <input type="email" class="form-control" id="emailAddress" aria-describedby="emailHelp" placeholder="Enter email">
+            <p id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</p>
+        </div>
+        <div class="form-group">
+            <label for="senderName">Your name:</label>
+            <input type="text" class="form-control" id="senderName" placeholder="Ex. Billy Bob">
+        </div>
+        <div class="form-group">
+                <label for="questionComment">Your question/comment:</label>
+                <textarea type="text" class="form-control" rows="5" id="questionComment" placeholder="Ex. The website needs less white."></textarea>  
+        </div>
+        <button type="submit" class="btn btn-primary"><a href="mailto:PVAZgroup@gmail.com"></a> Submit</button>
+    </form>
+    
+
+</div><!-- container -->
+
+<footer class="footer">
+  <div class="container">
+    <nav class="nav justify-content-center">
+        <a class=" pr-4" style="color:white;" href="/module/about/">About</a>
+        <a style="color:white" href="#">Contact Us</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>
