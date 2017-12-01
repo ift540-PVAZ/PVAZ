@@ -7,6 +7,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/custom.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <title>PVAZ - Home</title>
 </head>
 <body>
@@ -71,9 +72,41 @@
     </section>
 
     <section class="graphArea col-8">
-    
-      <img class="rounded w-100" src="images/test/graph.jpg" alt="graph">
       
+      <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBarColors);
+
+        function drawBarColors() {
+              var data = google.visualization.arrayToDataTable([
+                ['Test Condition', 'Performance'],
+                ['PVAZ', 300],
+                ['PVUSA', 200],
+                ['STC', 250],
+              ]);
+
+              var options = {
+                title: 'Solar Panel Performance',
+                chartArea: {width: '100%'},
+                colors: ['#b0120a'],
+                hAxis: {
+                  title: 'Performance',
+                  minValue: 0
+                },
+                vAxis: {
+                  title: 'Test Conditions'
+                }
+              };
+              var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+              chart.draw(data, options);
+            }
+      </script>
+      <div id="chart_div" style="width: 80%; text-align: center; alt="graph""></div>
+    </div>
+
+      <!--
+      <img class="rounded w-100" src="images/test/graph.jpg" alt="graph">
+      -->
     </section>
 
   </div><!-- row -->
