@@ -5,8 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/custom.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'modules/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'modules/css/custom.css' %}">
   <title>PVAZ - Request</title>
 </head>
 <body>
@@ -18,9 +19,9 @@
     </header>
 
     <nav class="nav nav-pills navbar-toggleable-sm justify-content-center">
-        <a class="nav-item nav-link" href="index.html">Home</a>
-        <a class="nav-item nav-link" href="moduleSpecs.html">Module Specs</a>
-        <a class="nav-item nav-link active" href="moduleRequest.html">Module Request</a>
+        <a class="nav-item nav-link" href="/module/">Home</a>
+        <a class="nav-item nav-link" href="/module/moduleSpecs/">Module Specs</a>
+        <a class="nav-item nav-link active" href="#">Module Request</a>
     </nav>
 
 
@@ -52,12 +53,12 @@
 </div><!-- container -->
 
 <footer class="footer">
-    <div class="container">
-        <nav class="nav justify-content-center">
-        <a class=" pr-4" style="color:white;" href="about.html">About</a>
-        <a style="color:white" href="contact.html">Contact Us</a>
-        </nav>
-    </div>
+  <div class="container">
+    <nav class="nav justify-content-center">
+        <a class=" pr-4" style="color:white;" href="/module/about/">About</a>
+        <a style="color:white" href="/module/contact/">Contact Us</a>
+    </nav>
+  </div>
 </footer>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
