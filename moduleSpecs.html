@@ -5,8 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/custom.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'modules/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'modules/css/custom.css' %}">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <title>PVAZ - Specs</title>
 </head>
 <body>
@@ -18,73 +24,148 @@
     </header>
 
     <nav class="nav nav-pills navbar-toggleable-sm justify-content-center">
-        <a class="nav-item nav-link" href="index.html">Home</a>
-        <a class="nav-item nav-link active" href="moduleSpecs.html">Module Specs</a>
-        <a class="nav-item nav-link" href="moduleRequest.html">Module Request</a>
+        <a class="nav-item nav-link" href="/module/">Home</a>
+        <a class="nav-item nav-link active" href="#">Module Specs</a>
+        <a class="nav-item nav-link" href="/module/moduleRequest/">Module Request</a>
     </nav>
 
     <div class="row">
         <section class="leftArea col-7 mx-auto">
             <p class="d-block">Select the module:</p>
         
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Module List
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Module 1</a>
-                      <a class="dropdown-item" href="#">Module 2</a>
-                      <a class="dropdown-item" href="#">Module 3</a>
-                    </div>
-                </div>
-                <br>
-                
-                <table class="table-hover table table-sm">
-                    <tbody>
-                      <tr>
-                        <th scope="row">Module Name/ID</th>
-                        <td>GYSP-69</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Max Voltage</th>
-                        <td>Plenty</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Cell Technology</th>
-                        <td colspan="2">Nanobots</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Size</th>
-                        <td colspan="2">Big</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Material</th>
-                        <td colspan="2">Adamantium</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Cell area</th>
-                        <td colspan="2">Not that big</td>
-                      </tr>
-                    </tbody>
-                </table>
-        </section>
-        
-    </div><!-- row -->
+                 <div class="dropdown">
+<select id="item_ModelID" name="item_ModelID">
+{% for entry in solarpanel %}
+
+    <option value="{{ entry.designspecificationid }}"><a>{{ entry.name }}</a></option>
+
+{% endfor %}
+</select>                </div>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var current_id = $("#item_ModelID :selected").val();
+	$.ajax({
+		url:"http://127.0.0.1:8000/module/get_spec/" + current_id + "/",
+		success: function(result) {
+			$("#modelnumber").html(result.modelnumber)
+			$("#manufacturer").html(result.manufacturer)
+			$("#size").html(result.size)
+			$("#material").html(result.material)
+			$("#totalnoofcells").html(result.totalnoofcells)
+			$("#encapsulant").html(result.encapsulant)
+			$("#frontdesign").html(result.frontdesign)
+			$("#backdesign").html(result.backdesign)
+			$("#typemodeldesignation").html(result.typemodeldesignation)
+			$("#modelmanufacturingdate").html(result.modelmanufacturingdate)
+			$("#moduletotalarea").html(result.moduletotalarea)
+			$("#moduleweight").html(result.moduleweight)
+			$("#moduleweight").html(result.individualcellarea)
+		}
+
+	});
+});
+$("#item_ModelID").change(function(event){
+	var data_ = $(this).val();
+	$.ajax({
+		url:"http://127.0.0.1:8000/module/get_spec/" + data_ + "/",
+		success: function(result) {
+			$("#modelnumber").html(result.modelnumber)
+			$("#manufacturer").html(result.manufacturer)
+			$("#size").html(result.size)
+			$("#material").html(result.material)
+			$("#totalnoofcells").html(result.totalnoofcells)
+			$("#encapsulant").html(result.encapsulant)
+			$("#frontdesign").html(result.frontdesign)
+			$("#backdesign").html(result.backdesign)
+			$("#typemodeldesignation").html(result.typemodeldesignation)
+			$("#modelmanufacturingdate").html(result.modelmanufacturingdate)
+			$("#moduletotalarea").html(result.moduletotalarea)
+			$("#moduleweight").html(result.moduleweight)
+			$("#moduleweight").html(result.individualcellarea)
+		}
+	});
+});
+</script>
+            </div>
+        </div>
+
+        <br>
+
+   <table id="Content" class="table-hover table table-sm">
+
+            <tbody>
+              <tr>
+                <th scope="row">modelnumber</th>
+                <td id="modelnumber"></td> 
+              </tr>
+              <tr>
+                <th scope="row">manufacturer</th>
+                <td id="manufacturer"></td> 
+              </tr>
+              <tr>
+                <th scope="row">size</th>
+                <td id="size"></td> 
+              </tr>
+              <tr>
+                <th scope="row">material</th>
+                <td id="material"></td> 
+              </tr>
+              <tr>
+                <th scope="row">totalnoofcells</th>
+                <td id="totalnoofcells"></td> 
+              </tr>
+              <tr>
+                <th scope="row">encapsulant</th>
+                <td id="encapsulant"></td> 
+              </tr>
+              <tr>
+                <th scope="row">frontdesign</th>
+                <td id="frontdesign"></td> 
+              </tr>
+              <tr>
+                <th scope="row">backdesign</th>
+                <td id="backdesign"></td> 
+              </tr>
+              <tr>
+                <th scope="row">typemodeldesignation</th>
+                <td id="typemodeldesignation"></td> 
+              </tr>
+              <tr>
+                <th scope="row">modelmanufacturingdate</th>
+                <td id="modelmanufacturingdate"></td> 
+              </tr>
+              <tr>
+                <th scope="row">moduletotalarea</th>
+                <td id="moduletotalarea"></td> 
+              </tr>
+              <tr>
+                <th scope="row">moduleweight</th>
+                <td id="moduleweight"></td> 
+              </tr>
+              <tr>
+                <th scope="row">individualcellarea</th>
+                <td id="individualcellarea"></td> 
+              </tr>              
+            </tbody>
+
+          </table>
+    </section>
+      
+    </section>	
+</div><!-- row -->
   
 </div><!-- container -->
 
 <footer class="footer">
-    <div class="container">
-      <nav class="nav justify-content-center">
-        <a class=" pr-4" style="color:white;" href="about.html">About</a>
-        <a style="color:white" href="contact.html">Contact Us</a>
-      </nav>
-    </div>
+  <div class="container">
+    <nav class="nav justify-content-center">
+        <a class=" pr-4" style="color:white;" href="/module/about/">About</a>
+        <a style="color:white" href="/module/contact/">Contact Us</a>
+    </nav>
+  </div>
 </footer>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
