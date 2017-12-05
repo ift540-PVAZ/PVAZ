@@ -188,6 +188,8 @@ class Performanceparameters(models.Model):
     voltage = models.FloatField(db_column='Voltage', blank=True, null=True)  # Field name made lowercase.
     current = models.FloatField(db_column='Current', blank=True, null=True)  # Field name made lowercase.
     temperaturecoefficient = models.FloatField(db_column='TemperatureCoefficient', blank=True, null=True)  # Field name made lowercase.
+    testcondition = models.CharField(db_column='TestCondition', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    modelid = models.ForeignKey('Solarpanel', models.DO_NOTHING, db_column='ModelID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -197,15 +199,13 @@ class Performanceparameters(models.Model):
 class Solarpanel(models.Model):
     modelid = models.AutoField(db_column='ModelID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=45)  # Field name made lowercase.
-    modelnumber = models.IntegerField(db_column='ModelNumber', blank=True, null=True)  # Field name made lowercase.
     designspecificationid = models.CharField(db_column='DesignSpecificationID', max_length=45, blank=True, null=True)  # Field name made lowercase.
     manufacturer_manufacturerid = models.ForeignKey(Manufacturer, models.DO_NOTHING, db_column='Manufacturer_ManufacturerID')  # Field name made lowercase.
-    performanceparameters_performanceid = models.ForeignKey(Performanceparameters, models.DO_NOTHING, db_column='PerformanceParameters_PerformanceID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'solarpanel'
-        unique_together = (('modelid', 'manufacturer_manufacturerid', 'performanceparameters_performanceid'),)
+        unique_together = (('modelid', 'manufacturer_manufacturerid'),)
 
 
 class SolarpanelHasTestcondition(models.Model):

@@ -8,6 +8,12 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'modules/css/bootstrap.css' %}">
   <link rel="stylesheet" href="{% static 'modules/css/custom.css' %}">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
   <title>PVAZ - Home</title>
 </head>
 <body>
@@ -26,54 +32,191 @@
 
   <div class="row">
 
-    <section class="leftArea col-4">
+    <section class="leftArea col-2 mx-auto">
         <p>Select the module:</p>
 
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Module List
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Module 1</a>
-              <a class="dropdown-item" href="#">Module 2</a>
-              <a class="dropdown-item" href="#">Module 3</a>
+<select id="item_ModelID" name="item_ModelID">
+{% for entry in solarpanel %}
+
+    <option value="{{ entry.modelid }}"><a>{{ entry.name }}</a></option>
+
+{% endfor %}
+</select>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var current_id = $("#item_ModelID :selected").val();
+	$.ajax({
+		url:"http://127.0.0.1:8000/module/get_data/" + current_id + "/",
+		success: function(result) {
+			$("#STCID").html(result.STC.performanceid)
+			$("#STCPOWER").html(result.STC.power)
+			$("#STCVOL").html(result.STC.voltage)
+			 $("#STCCUR").html(result.STC.current)
+			$("#STCTEMP").html(result.STC.temperaturecoefficient)
+			$("#PVUSAID").html(result.PVUSA.performanceid)
+			$("#PVUSAPOWER").html(result.PVUSA.power)
+			$("#PVUSAVOL").html(result.PVUSA.voltage)
+			 $("#PVUSACUR").html(result.PVUSA.current)
+			$("#PVUSATEMP").html(result.PVUSA.temperaturecoefficient)
+			$("#PVAZID").html(result.PVAZ.performanceid)
+			$("#PVAZPOWER").html(result.PVAZ.power)
+			$("#PVAZVOL").html(result.PVAZ.voltage)
+			 $("#PVAZCUR").html(result.PVAZ.current)
+			$("#PVAZTEMP").html(result.PVAZ.temperaturecoefficient)
+
+
+
+			google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBarColors);
+        function drawBarColors() {
+              var data = google.visualization.arrayToDataTable([
+                ['Test Condition', 'Performance'],
+                ['PVAZ', result.PVAZ.power],
+                ['PVUSA', result.PVUSA.power],
+                ['STC', result.STC.power],
+              ]);
+              var options = {
+                title: 'Solar Panel Performance',
+                chartArea: {width: '100%'},
+                colors: ['#b0120a'],
+                hAxis: {
+                  title: 'Performance',
+                  minValue: 0
+                },
+                vAxis: {
+                  title: 'Test Conditions'
+                }
+              };
+              var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+              chart.draw(data, options);
+            }
+
+
+
+
+
+			}
+
+	});
+});
+$("#item_ModelID").change(function(event){
+	var data_ = $(this).val();
+	$.ajax({
+		url:"http://127.0.0.1:8000/module/get_data/" + data_ + "/",
+		success: function(result) {
+			$("#STCID").html(result.STC.performanceid)
+			$("#STCPOWER").html(result.STC.power)
+			$("#STCVOL").html(result.STC.voltage)
+			 $("#STCCUR").html(result.STC.current)
+			$("#STCTEMP").html(result.STC.temperaturecoefficient)
+			$("#PVUSAID").html(result.PVUSA.performanceid)
+			$("#PVUSAPOWER").html(result.PVUSA.power)
+			$("#PVUSAVOL").html(result.PVUSA.voltage)
+			 $("#PVUSACUR").html(result.PVUSA.current)
+			$("#PVUSATEMP").html(result.PVUSA.temperaturecoefficient)
+			$("#PVAZID").html(result.PVAZ.performanceid)
+			$("#PVAZPOWER").html(result.PVAZ.power)
+			$("#PVAZVOL").html(result.PVAZ.voltage)
+			 $("#PVAZCUR").html(result.PVAZ.current)
+			$("#PVAZTEMP").html(result.PVAZ.temperaturecoefficient)
+
+		
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawBarColors);
+        function drawBarColors() {
+              var data = google.visualization.arrayToDataTable([
+                ['Test Condition', 'Performance'],
+                ['PVAZ', result.PVAZ.power],
+                ['PVUSA', result.PVUSA.power],
+                ['STC', result.STC.power],
+              ]);
+              var options = {
+                title: 'Solar Panel Performance',
+                chartArea: {width: '100%'},
+                colors: ['#b0120a'],
+                hAxis: {
+                  title: 'Performance',
+                  minValue: 0
+                },
+                vAxis: {
+                  title: 'Test Conditions'
+                }
+              };
+              var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+              chart.draw(data, options);
+            }
+
+
+		}
+ 
+		});
+});
+</script>
             </div>
         </div>
-        <br>
 
-        <table class="table-hover table table-sm">
+        <br>
+    </section>
+    <section class="col-8 mx-auto">
+   <table id="Content" class="table-hover table table-sm">
+
             <tbody>
               <tr>
+                <th>
+                  TESTConditions
+                </th>
+                <td>
+                  STC
+                </td>
+                <td>
+                  PVUSA
+                </td>
+                <td>
+                  PVAZ
+                </td>
+              </tr>
+              <tr>
                 <th scope="row">Module Name/ID</th>
-                <td>GYSP-69</td>
+
+                <td id="STCID"></td> 
+		            <td id="PVUSAID"></td>
+		            <td id="PVAZID"></td>
               </tr>
               <tr>
-                <th scope="row">Max Voltage</th>
-                <td>Plenty</td>
+                <th scope="row">Power</th>
+                <td id="STCPOWER"></td>
+		            <td id="PVUSAPOWER"></td>
+		            <td id="PVAZPOWER"></td>
               </tr>
               <tr>
-                <th scope="row">Cell Technology</th>
-                <td colspan="2">Nanobots</td>
+                <th scope="row">Voltage</th>
+                <td id="STCVOL"></td>
+		            <td id="PVUSAVOL"></td>
+		            <td id="PVAZVOL"></td>
               </tr>
               <tr>
-                <th scope="row">Size</th>
-                <td colspan="2">Big</td>
+                <th scope="row">Current</th>
+                <td id="STCCUR"></td>
+		            <td id="PVUSACUR"></td>
+		            <td id="PVAZCUR"></td>
               </tr>
               <tr>
-                <th scope="row">Material</th>
-                <td colspan="2">Adamantium</td>
+                <th scope="row">Temperature Coefficients</th>
+                <td id="STCTEMP"></td>
+		            <td id="PVUSATEMP"></td>
+		            <td id="PVAZTEMP"></td>
               </tr>
-              <tr>
-                <th scope="row">Cell area</th>
-                <td colspan="2">Not that big</td>
-              </tr>
+              
             </tbody>
+
           </table>
     </section>
+     
 
-    <section class="graphArea col-8">
-    
-      <img class="rounded w-100" src="{% static 'modules/images/test/graph.jpg' %}" alt="graph">
+       <section class="graphArea col-8 mx-auto">
+      <div id="chart_div" style="width: 80%; text-align: center; alt="graph""></div>
       
     </section>
 
@@ -88,10 +231,5 @@
     </nav>
   </div>
 </footer>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </body>
 </html>
